@@ -1,0 +1,897 @@
+2024-07-29 10:33:09,951 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doctype': 'User', 'fields': '["`tabUser`.`name`","`tabUser`.`owner`","`tabUser`.`creation`","`tabUser`.`modified`","`tabUser`.`modified_by`","`tabUser`.`_user_tags`","`tabUser`.`_comments`","`tabUser`.`_assign`","`tabUser`.`_liked_by`","`tabUser`.`docstatus`","`tabUser`.`idx`","`tabUser`.`user_type`","`tabUser`.`full_name`","`tabUser`.`user_image`","`tabUser`.`enabled`"]', 'filters': '[["User Role Profile","role_profile","=","HR"]]', 'order_by': '`tabUser`.creation desc', 'start': '0', 'page_length': '20', 'view': 'List', 'group_by': '`tabUser`.`name`', 'with_comment_count': '1', 'cmd': 'frappe.desk.reportview.get'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 963, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 32, in get
+    data = compress(execute(**args), args=args)
+                    ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 78, in execute
+    return DatabaseQuery(doctype).execute(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 193, in execute
+    result = self.build_and_run()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 234, in build_and_run
+    return frappe.db.sql(
+           ^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.AmbiguousColumn: column reference "creation" is ambiguous
+LINE 1: ... "tabUser"."user_image", "tabUser"."enabled", MAX(creation) ...
+                                                             ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 10:33:10,265 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doctype': 'User', 'filters': '[["User Role Profile","role_profile","=","HR"]]', 'fields': '[]', 'distinct': 'true', 'limit': '1001', 'cmd': 'frappe.desk.reportview.get_count'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 963, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 69, in get_count
+    count = frappe.db.sql(f"""select count(*) from ( {partial_query} ) p""")[0][0]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.SyntaxError: syntax error at or near "distinct"
+LINE 1: select count(*) from ( select distinct distinct cast("tabUse...
+                                               ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 10:34:42,940 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doctype': 'User', 'fields': '["`tabUser`.`name`","`tabUser`.`owner`","`tabUser`.`creation`","`tabUser`.`modified`","`tabUser`.`modified_by`","`tabUser`.`_user_tags`","`tabUser`.`_comments`","`tabUser`.`_assign`","`tabUser`.`_liked_by`","`tabUser`.`docstatus`","`tabUser`.`idx`","`tabUser`.`user_type`","`tabUser`.`full_name`","`tabUser`.`user_image`","`tabUser`.`enabled`"]', 'filters': '[["User Role Profile","role_profile","=","HR"]]', 'order_by': '`tabUser`.creation desc', 'start': '0', 'page_length': '20', 'view': 'List', 'group_by': '`tabUser`.`name`', 'with_comment_count': '1', 'cmd': 'frappe.desk.reportview.get'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 963, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 32, in get
+    data = compress(execute(**args), args=args)
+                    ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 78, in execute
+    return DatabaseQuery(doctype).execute(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 193, in execute
+    result = self.build_and_run()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 234, in build_and_run
+    return frappe.db.sql(
+           ^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.AmbiguousColumn: column reference "creation" is ambiguous
+LINE 1: ... "tabUser"."user_image", "tabUser"."enabled", MAX(creation) ...
+                                                             ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 10:34:50,610 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doctype': 'User', 'fields': '["`tabUser`.`name`","`tabUser`.`owner`","`tabUser`.`creation`","`tabUser`.`modified`","`tabUser`.`modified_by`","`tabUser`.`_user_tags`","`tabUser`.`_comments`","`tabUser`.`_assign`","`tabUser`.`_liked_by`","`tabUser`.`docstatus`","`tabUser`.`idx`","`tabUser`.`user_type`","`tabUser`.`full_name`","`tabUser`.`user_image`","`tabUser`.`enabled`"]', 'filters': '[["User Role Profile","role_profile","=","HR"]]', 'order_by': '`tabUser`.creation desc', 'start': '0', 'page_length': '20', 'view': 'List', 'group_by': '`tabUser`.`name`', 'with_comment_count': '1', 'cmd': 'frappe.desk.reportview.get'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 963, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 32, in get
+    data = compress(execute(**args), args=args)
+                    ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 78, in execute
+    return DatabaseQuery(doctype).execute(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 193, in execute
+    result = self.build_and_run()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 234, in build_and_run
+    return frappe.db.sql(
+           ^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.AmbiguousColumn: column reference "creation" is ambiguous
+LINE 1: ... "tabUser"."user_image", "tabUser"."enabled", MAX(creation) ...
+                                                             ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 10:34:51,612 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doctype': 'User', 'filters': '[["User Role Profile","role_profile","=","HR"]]', 'fields': '[]', 'distinct': 'true', 'limit': '1001', 'cmd': 'frappe.desk.reportview.get_count'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 963, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 69, in get_count
+    count = frappe.db.sql(f"""select count(*) from ( {partial_query} ) p""")[0][0]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.SyntaxError: syntax error at or near "distinct"
+LINE 1: select count(*) from ( select distinct distinct cast("tabUse...
+                                               ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 10:35:16,045 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doctype': 'User', 'fields': '["`tabUser`.`name`","`tabUser`.`owner`","`tabUser`.`creation`","`tabUser`.`modified`","`tabUser`.`modified_by`","`tabUser`.`_user_tags`","`tabUser`.`_comments`","`tabUser`.`_assign`","`tabUser`.`_liked_by`","`tabUser`.`docstatus`","`tabUser`.`idx`","`tabUser`.`user_type`","`tabUser`.`full_name`","`tabUser`.`user_image`","`tabUser`.`enabled`"]', 'filters': '[["User Role Profile","role_profile","=","HR"]]', 'order_by': '`tabUser`.creation desc', 'start': '0', 'page_length': '20', 'view': 'List', 'group_by': '`tabUser`.`name`', 'with_comment_count': '1', 'cmd': 'frappe.desk.reportview.get'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 963, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 32, in get
+    data = compress(execute(**args), args=args)
+                    ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 78, in execute
+    return DatabaseQuery(doctype).execute(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 193, in execute
+    result = self.build_and_run()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/db_query.py", line 234, in build_and_run
+    return frappe.db.sql(
+           ^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.AmbiguousColumn: column reference "creation" is ambiguous
+LINE 1: ... "tabUser"."user_image", "tabUser"."enabled", MAX(creation) ...
+                                                             ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 10:35:17,033 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doctype': 'User', 'filters': '[["User Role Profile","role_profile","=","HR"]]', 'fields': '[]', 'distinct': 'true', 'limit': '1001', 'cmd': 'frappe.desk.reportview.get_count'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 963, in wrapper_fn
+    retval = fn(*args, **get_newargs(fn, kwargs))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/reportview.py", line 69, in get_count
+    count = frappe.db.sql(f"""select count(*) from ( {partial_query} ) p""")[0][0]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.SyntaxError: syntax error at or near "distinct"
+LINE 1: select count(*) from ( select distinct distinct cast("tabUse...
+                                               ^
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 11:00:19,858 ERROR frappe New Exception collected in error log
+Site: library.localhost
+Form Dict: {'doctype': 'Library Member', 'with_parent': '1', 'cached_timestamp': '', 'cmd': 'frappe.desk.form.load.getdoctype'}
+2024-07-29 11:00:50,572 ERROR frappe New Exception collected in error log
+Site: library.localhost
+Form Dict: {'doctype': 'Library Member', 'with_parent': '1', 'cached_timestamp': '', 'cmd': 'frappe.desk.form.load.getdoctype'}
+2024-07-29 11:00:54,791 ERROR frappe New Exception collected in error log
+Site: library.localhost
+Form Dict: {'doctype': 'Library Member', 'with_parent': '1', 'cached_timestamp': '', 'cmd': 'frappe.desk.form.load.getdoctype'}
+2024-07-29 11:00:57,669 ERROR frappe New Exception collected in error log
+Site: library.localhost
+Form Dict: {'doctype': 'Library Member', 'with_parent': '1', 'cached_timestamp': '', 'cmd': 'frappe.desk.form.load.getdoctype'}
+2024-07-29 11:01:41,006 ERROR frappe New Exception collected in error log
+Site: library.localhost
+Form Dict: {'doctype': 'Library Member', 'with_parent': '1', 'cached_timestamp': '', 'cmd': 'frappe.desk.form.load.getdoctype'}
+2024-07-29 11:06:09,290 ERROR frappe New Exception collected in error log
+Site: library.localhost
+Form Dict: {'doc': '{"name":"Library Member","creation":"2024-07-29 10:41:04.041850","modified":"2024-07-29 10:43:58.800449","modified_by":"Administrator","owner":"Administrator","docstatus":0,"idx":0,"issingle":0,"is_virtual":0,"is_tree":0,"istable":0,"editable_grid":0,"track_changes":0,"module":"Library Management","naming_rule":"Expression (old style)","sort_field":"creation","sort_order":"DESC","read_only":0,"in_create":0,"allow_copy":0,"allow_rename":1,"allow_import":0,"hide_toolbar":0,"track_seen":0,"max_attachments":0,"document_type":"","engine":"InnoDB","is_submittable":0,"show_name_in_global_search":0,"custom":0,"beta":0,"has_web_view":0,"allow_guest_to_view":0,"email_append_to":0,"show_title_field_in_link":0,"translated_doctype":0,"is_calendar_and_gantt":0,"quick_entry":0,"track_views":0,"queue_in_background":0,"allow_events_in_timeline":0,"allow_auto_repeat":0,"make_attachments_public":0,"force_re_route_to_default_view":0,"show_preview_popup":0,"index_web_pages_for_search":1,"doctype":"DocType","permissions":[{"name":"hit0ap9nqt","creation":"2024-07-29 10:41:04.041850","modified":"2024-07-29 10:43:58.800449","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Member","parentfield":"permissions","parenttype":"DocType","idx":1,"permlevel":0,"role":"System Manager","read":1,"write":1,"create":1,"submit":0,"cancel":0,"delete":1,"amend":0,"report":1,"export":1,"import":0,"share":1,"print":1,"email":1,"if_owner":0,"select":0,"doctype":"DocPerm"}],"fields":[{"name":"hit0fa9no6","creation":"2024-07-29 10:41:04.041850","modified":"2024-07-29 10:43:58.800449","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Member","parentfield":"fields","parenttype":"DocType","idx":1,"fieldname":"first_name","label":"First Name","fieldtype":"Data","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":1,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":1,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":0,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField"},{"name":"hkjk1953l5","creation":"2024-07-29 10:41:04.041850","modified":"2024-07-29 10:43:58.800449","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Member","parentfield":"fields","parenttype":"DocType","idx":2,"fieldname":"last_name","label":"Last Name","fieldtype":"Data","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":0,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":0,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":0,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField"},{"name":"hkjksm08oa","creation":"2024-07-29 10:41:04.041850","modified":"2024-07-29 10:43:58.800449","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Member","parentfield":"fields","parenttype":"DocType","idx":3,"fieldname":"full_name","label":"Full Name","fieldtype":"Data","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":0,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":0,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":1,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField"},{"name":"hkjkv7aphc","creation":"2024-07-29 10:41:04.041850","modified":"2024-07-29 10:43:58.800449","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Member","parentfield":"fields","parenttype":"DocType","idx":4,"fieldname":"email_address","label":"Email Address","fieldtype":"Data","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":0,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":0,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":0,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField","options":"Email"},{"name":"hkjk99ru47","creation":"2024-07-29 10:41:04.041850","modified":"2024-07-29 10:43:58.800449","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Member","parentfield":"fields","parenttype":"DocType","idx":5,"fieldname":"phone","label":"Phone ","fieldtype":"Data","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":0,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":0,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":0,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField","options":"Phone"}],"states":[],"links":[],"actions":[],"__unsaved":1,"autoname":"LM.#####"}', 'action': 'Save', 'cmd': 'frappe.desk.form.save.savedocs'}
+2024-07-29 11:31:51,100 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doc': '{"name":"Library Membership","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"idx":0,"issingle":0,"is_virtual":0,"is_tree":0,"istable":0,"editable_grid":0,"track_changes":0,"module":"Library Management","naming_rule":"Expression (old style)","sort_field":"creation","sort_order":"DESC","read_only":0,"in_create":0,"allow_copy":0,"allow_rename":1,"allow_import":0,"hide_toolbar":0,"track_seen":0,"max_attachments":0,"document_type":"","engine":"InnoDB","is_submittable":0,"show_name_in_global_search":0,"custom":0,"beta":0,"has_web_view":0,"allow_guest_to_view":0,"email_append_to":0,"show_title_field_in_link":0,"translated_doctype":0,"is_calendar_and_gantt":0,"quick_entry":0,"track_views":0,"queue_in_background":0,"allow_events_in_timeline":0,"allow_auto_repeat":0,"make_attachments_public":0,"force_re_route_to_default_view":0,"show_preview_popup":0,"index_web_pages_for_search":1,"doctype":"DocType","permissions":[{"name":"ibo8jp07rj","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Membership","parentfield":"permissions","parenttype":"DocType","idx":1,"permlevel":0,"role":"System Manager","read":1,"write":1,"create":1,"submit":0,"cancel":0,"delete":1,"amend":0,"report":1,"export":1,"import":0,"share":1,"print":1,"email":1,"if_owner":0,"select":0,"doctype":"DocPerm"},{"docstatus":0,"doctype":"DocPerm","name":"new-docperm-vipkqbwjem","__islocal":1,"__unsaved":1,"owner":"Administrator","if_owner":0,"permlevel":0,"select":0,"read":1,"write":1,"create":1,"delete":1,"submit":0,"cancel":0,"amend":0,"report":1,"export":1,"import":0,"share":1,"print":1,"email":1,"parent":"Library Membership","parentfield":"permissions","parenttype":"DocType","idx":2,"__unedited":false,"role":"Librarian"}],"states":[],"links":[],"actions":[],"fields":[{"name":"ibo8e0j802","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":1,"fieldname":"","fieldtype":"Link","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":1,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":0,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":0,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField","label":"Library Member","options":"Library Member"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-quefjuvnql","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Data","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":1,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":2,"__unedited":false,"label":"Full Name","link_filters":""},{"docstatus":0,"doctype":"DocField","name":"new-docfield-lbxrgmvqqo","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Date","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":3,"__unedited":false,"label":"From Date"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-zbqsofpfgk","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Date","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":4,"__unedited":false,"label":"To Date"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-csfipjhbbb","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Check","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":5,"__unedited":false,"label":"Paid "}],"__unsaved":1,"autoname":" LMS.##### "}', 'action': 'Save', 'cmd': 'frappe.desk.form.save.savedocs'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/form/save.py", line 39, in savedocs
+    doc.save()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 340, in save
+    return self._save(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 392, in _save
+    self.update_children()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 427, in update_children
+    self.update_child_table(df.fieldname, df)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 459, in update_child_table
+    d.db_update()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 606, in db_update
+    self.db_insert()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 566, in db_insert
+    frappe.db.sql(
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type json
+LINE 2: ...', '1', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '')
+                                                                    ^
+DETAIL:  The input string ended unexpectedly.
+CONTEXT:  JSON data, line 1: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 11:42:21,000 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doc': '{"name":"Library Membership","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"idx":0,"issingle":0,"is_virtual":0,"is_tree":0,"istable":0,"editable_grid":0,"track_changes":0,"module":"Library Management","naming_rule":"Expression (old style)","sort_field":"creation","sort_order":"DESC","read_only":0,"in_create":0,"allow_copy":0,"allow_rename":1,"allow_import":0,"hide_toolbar":0,"track_seen":0,"max_attachments":0,"document_type":"","engine":"InnoDB","is_submittable":1,"show_name_in_global_search":0,"custom":0,"beta":0,"has_web_view":0,"allow_guest_to_view":0,"email_append_to":0,"show_title_field_in_link":0,"translated_doctype":0,"is_calendar_and_gantt":0,"quick_entry":0,"track_views":0,"queue_in_background":0,"allow_events_in_timeline":0,"allow_auto_repeat":0,"make_attachments_public":0,"force_re_route_to_default_view":0,"show_preview_popup":0,"index_web_pages_for_search":1,"doctype":"DocType","permissions":[{"name":"ibo8jp07rj","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Membership","parentfield":"permissions","parenttype":"DocType","idx":1,"permlevel":0,"role":"System Manager","read":1,"write":1,"create":1,"submit":0,"cancel":0,"delete":1,"amend":0,"report":1,"export":1,"import":0,"share":1,"print":1,"email":1,"if_owner":0,"select":0,"doctype":"DocPerm"},{"docstatus":0,"doctype":"DocPerm","name":"new-docperm-vipkqbwjem","__islocal":1,"__unsaved":1,"owner":"Administrator","if_owner":0,"permlevel":0,"select":0,"read":1,"write":1,"create":1,"delete":1,"submit":0,"cancel":0,"amend":0,"report":1,"export":1,"import":0,"share":1,"print":1,"email":1,"parent":"Library Membership","parentfield":"permissions","parenttype":"DocType","idx":2,"__unedited":false,"role":"Librarian"}],"states":[],"links":[],"actions":[],"fields":[{"name":"ibo8e0j802","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":1,"fieldname":"","fieldtype":"Link","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":1,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":0,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":0,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField","label":"Library Member","options":"Library Member"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-quefjuvnql","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Data","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":1,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":2,"__unedited":false,"label":"Full Name","link_filters":"","fetch_from":""},{"docstatus":0,"doctype":"DocField","name":"new-docfield-lbxrgmvqqo","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Date","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":3,"__unedited":false,"label":"From Date"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-zbqsofpfgk","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Date","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":4,"__unedited":false,"label":"To Date"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-csfipjhbbb","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Check","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":5,"__unedited":false,"label":"Paid "}],"__unsaved":1,"autoname":" LMS.##### ","title_field":"full_name"}', 'action': 'Save', 'cmd': 'frappe.desk.form.save.savedocs'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/form/save.py", line 39, in savedocs
+    doc.save()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 340, in save
+    return self._save(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 392, in _save
+    self.update_children()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 427, in update_children
+    self.update_child_table(df.fieldname, df)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 459, in update_child_table
+    d.db_update()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 606, in db_update
+    self.db_insert()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 566, in db_insert
+    frappe.db.sql(
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type json
+LINE 2: ...1', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '')
+                                                                ^
+DETAIL:  The input string ended unexpectedly.
+CONTEXT:  JSON data, line 1: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+2024-07-29 11:44:46,921 ERROR frappe Could not take error snapshot: current transaction is aborted, commands ignored until end of transaction block
+
+Site: library.localhost
+Form Dict: {'doc': '{"name":"Library Membership","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"idx":0,"issingle":0,"is_virtual":0,"is_tree":0,"istable":0,"editable_grid":0,"track_changes":0,"module":"Library Management","naming_rule":"Expression (old style)","sort_field":"creation","sort_order":"DESC","read_only":0,"in_create":0,"allow_copy":0,"allow_rename":1,"allow_import":0,"hide_toolbar":0,"track_seen":0,"max_attachments":0,"document_type":"","engine":"InnoDB","is_submittable":1,"show_name_in_global_search":0,"custom":0,"beta":0,"has_web_view":0,"allow_guest_to_view":0,"email_append_to":0,"show_title_field_in_link":0,"translated_doctype":0,"is_calendar_and_gantt":0,"quick_entry":0,"track_views":0,"queue_in_background":0,"allow_events_in_timeline":0,"allow_auto_repeat":0,"make_attachments_public":0,"force_re_route_to_default_view":0,"show_preview_popup":0,"index_web_pages_for_search":1,"doctype":"DocType","permissions":[{"name":"ibo8jp07rj","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Membership","parentfield":"permissions","parenttype":"DocType","idx":1,"permlevel":0,"role":"System Manager","read":1,"write":1,"create":1,"submit":0,"cancel":0,"delete":1,"amend":0,"report":1,"export":1,"import":0,"share":1,"print":1,"email":1,"if_owner":0,"select":0,"doctype":"DocPerm"},{"docstatus":0,"doctype":"DocPerm","name":"new-docperm-vipkqbwjem","__islocal":1,"__unsaved":1,"owner":"Administrator","if_owner":0,"permlevel":0,"select":0,"read":1,"write":1,"create":1,"delete":1,"submit":0,"cancel":0,"amend":0,"report":1,"export":1,"import":0,"share":1,"print":1,"email":1,"parent":"Library Membership","parentfield":"permissions","parenttype":"DocType","idx":2,"__unedited":false,"role":"Librarian"}],"states":[],"links":[],"actions":[],"fields":[{"name":"ibo8e0j802","creation":"2024-07-29 11:23:28.831995","modified":"2024-07-29 11:23:28.831995","modified_by":"Administrator","owner":"Administrator","docstatus":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":1,"fieldname":"","fieldtype":"Link","search_index":0,"hidden":0,"set_only_once":0,"show_dashboard":0,"allow_in_quick_entry":0,"print_hide":0,"report_hide":0,"reqd":1,"bold":0,"in_global_search":0,"collapsible":0,"unique":0,"no_copy":0,"allow_on_submit":0,"show_preview_popup":0,"permlevel":0,"ignore_user_permissions":0,"columns":0,"in_list_view":0,"fetch_if_empty":0,"in_filter":0,"remember_last_selected_value":0,"ignore_xss_filter":0,"print_hide_if_no_value":0,"allow_bulk_edit":0,"in_standard_filter":0,"in_preview":0,"read_only":0,"precision":"","length":0,"translatable":0,"hide_border":0,"hide_days":0,"hide_seconds":0,"non_negative":0,"is_virtual":0,"not_nullable":0,"sort_options":0,"doctype":"DocField","label":"Library Member","options":"Library Member"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-quefjuvnql","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Data","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":1,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":1,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":2,"__unedited":false,"label":"Full Name","link_filters":"","fetch_from":""},{"docstatus":0,"doctype":"DocField","name":"new-docfield-lbxrgmvqqo","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Date","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":3,"__unedited":false,"label":"From Date"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-zbqsofpfgk","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Date","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":4,"__unedited":false,"label":"To Date"},{"docstatus":0,"doctype":"DocField","name":"new-docfield-csfipjhbbb","__islocal":1,"__unsaved":1,"owner":"Administrator","fieldtype":"Check","precision":"","non_negative":0,"hide_days":0,"hide_seconds":0,"reqd":0,"is_virtual":0,"search_index":0,"not_nullable":0,"sort_options":0,"show_dashboard":0,"fetch_if_empty":0,"hidden":0,"bold":0,"allow_in_quick_entry":0,"translatable":0,"print_hide":0,"print_hide_if_no_value":0,"report_hide":0,"collapsible":0,"hide_border":0,"in_list_view":0,"in_standard_filter":0,"in_preview":0,"in_filter":0,"in_global_search":0,"read_only":0,"allow_on_submit":0,"ignore_user_permissions":0,"allow_bulk_edit":0,"permlevel":0,"ignore_xss_filter":0,"unique":0,"no_copy":0,"set_only_once":0,"remember_last_selected_value":0,"parent":"Library Membership","parentfield":"fields","parenttype":"DocType","idx":5,"__unedited":false,"label":"Paid "}],"__unsaved":1,"autoname":" LMS.##### ","title_field":"full_name"}', 'action': 'Save', 'cmd': 'frappe.desk.form.save.savedocs'}
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/app.py", line 114, in application
+    response = frappe.api.handle(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 49, in handle
+    data = execute_cmd(cmd)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/handler.py", line 85, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1814, in call
+    return fn(*args, **newargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 32, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/desk/form/save.py", line 39, in savedocs
+    doc.save()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 340, in save
+    return self._save(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 392, in _save
+    self.update_children()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 427, in update_children
+    self.update_child_table(df.fieldname, df)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 459, in update_child_table
+    d.db_update()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 606, in db_update
+    self.db_insert()
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 566, in db_insert
+    frappe.db.sql(
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type json
+LINE 2: ...1', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '')
+                                                                ^
+DETAIL:  The input string ended unexpectedly.
+CONTEXT:  JSON data, line 1: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 87, in log_error_snapshot
+    log_error(title=str(exception), defer_insert=True)
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/utils/error.py", line 62, in log_error
+    error_log = frappe.get_doc(
+                ^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/__init__.py", line 1379, in get_doc
+    doc = frappe.model.document.get_doc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/document.py", line 85, in get_doc
+    controller = get_controller(doctype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 67, in get_controller
+    return import_controller(doctype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/model/base_document.py", line 82, in import_controller
+    doctype_info = frappe.db.get_value("DocType", doctype, fieldname="*")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 524, in get_value
+    result = self.get_values(
+             ^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 628, in get_values
+    out = self._get_values_from_table(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 901, in _get_values_from_table
+    return query.run(as_dict=as_dict, debug=debug, update=update, run=run, pluck=pluck)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/query_builder/utils.py", line 84, in execute_query
+    result = frappe.db.sql(query, params, *args, **kwargs)  # nosemgrep
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/postgres/database.py", line 230, in sql
+    return super().sql(modify_query(query), modify_values(values), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/addisutedla/Documents/Projects/library/frappe-bench/apps/frappe/frappe/database/database.py", line 236, in sql
+    self._cursor.execute(query, values)
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
